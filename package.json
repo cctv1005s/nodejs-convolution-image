@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "pixels": "^0.1.1"
+  }
+}
