@@ -10,8 +10,7 @@ const {
   type
 } = image;
 
-const fs = require('fs');
-fs.writeFileSync('./log/out.json', JSON.stringify(data, null, 2));
+
 const arrayData = [];
 data.forEach(item => {
   arrayData.push(item);
