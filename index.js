@@ -1,5 +1,6 @@
 const px = require('pixels');
 const _ = require('lodash');
+const kernel = require('./kernel');
 
 let image = px.read('./images/img1.jpg', Float64Array);
 
@@ -38,13 +39,6 @@ matrix.forEach(item => {
   item.push([0, 0, 0, 1]);
   item.unshift([0, 0, 0, 1]);
 });
-
-// 图像锐化kernel sharpening
-const sharp = [
-  [-1, -1, -1],
-  [-1, 9, -1],
-  [-1, -1, -1]
-];
 
 // 获得一个全为0的矩阵
 const getMatrix = (...agrs) => {
@@ -99,17 +93,22 @@ const convolution = (image, kernel) => {
   return newImage;
 };
 
-const newImage = convolution(matrix, sharp);
-const cresult = _.flattenDeep(newImage);
-const cimage = new Float64Array(width * height * 4);
+Object.keys(kernel).forEach(item => {
+  const k = kernel[item];
+  const newImage = convolution(matrix, k);
+  const cresult = _.flattenDeep(newImage);
+  const cimage = new Float64Array(width * height * 4);
 
-for (let i = 0; i < width * height * 4; i++) {
-  cimage[i] = cresult[i];
-}
+  for (let i = 0; i < width * height * 4; i++) {
+    cimage[i] = cresult[i];
+  }
 
-px.write('./output/img1.jpg', {
-  height: height,
-  width: width,
-  type: type,
-  data: cimage
+  px.write(`./output/img1_${item}.jpg`, {
+    height: height,
+    width: width,
+    type: type,
+    data: cimage
+  });
+
+  console.log(`success ==> ./output/img1_${item}.jpg`);
 });
