@@ -2,5 +2,12 @@
   "dependencies": {
     "lodash": "^4.17.10",
     "pixels": "^0.1.1"
+  },
+  "devDependencies": {
+    "eslint-config-google": "^0.9.1",
+    "babel-eslint": "^8.0.3",
+    "eslint": "^4.19.1",
+    "eslint-config-aliyun": "^2.0.2",
+    "eslint-plugin-react": "^7.8.2"
   }
 }
