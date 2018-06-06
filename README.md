@@ -9,7 +9,7 @@ $ node .
 
 # images
 
-orgin:
+origin:
 
 ![origin](https://github.com/cctv1005s/nodejs-convolution-image/raw/master/images/img1.jpg)
 
