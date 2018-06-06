@@ -63,7 +63,9 @@ const getMatrix = (...agrs) => {
 const convolution = (image, kernel) => {
   const width = image[0].length - 2;
   const height = image.length - 2;
-  const newImage = getMatrix(width, height, 4);
+
+  const newImage = getMatrix(height, width, 4);
+
   /**
    * 两个矩阵块相乘
    * @param {*} kernel 卷积核
@@ -72,11 +74,11 @@ const convolution = (image, kernel) => {
    * @param {*} y 当前位置y
    */
   const calc = (kernel, matrix, x, y) => {
-    let sum = 0;
     const length = kernel.length;
-    for (let k = 0; k < length; k++) {
+    for (let k = 0; k < 3; k++) {
+      let sum = 0;
       for (let i = 0; i < length; i++)
-        for (let j = 0; j < 3; j++) {
+        for (let j = 0; j < length; j++) {
           sum += (kernel[length - i - 1][length - j - 1] * matrix[x + i + -1][y + j + -1][k]);
         }
       newImage[x - 1][y - 1][k] = Math.abs(sum || 0);
@@ -85,9 +87,9 @@ const convolution = (image, kernel) => {
   };
 
   // 开始卷积图像
-  for (let i = 1; i < width + 1; i++) {
-    for (let j = 1; j < height + 1; j++) {
-      calc(kernel, image, i, j);
+  for (let i = 1; i < width - 1; i++) {
+    for (let j = 1; j < height - 1; j++) {
+      calc(kernel, image, j, i);
     }
   }
   return newImage;
